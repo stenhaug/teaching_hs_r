@@ -1,0 +1,85 @@
+---
+title: "Inference - Comparisons"
+author: "Mr. Adams"
+date: "2/27/2019"
+output: html_document
+---
+
+##install library 
+```{r install libraries}
+
+library(tidyverse)
+library(skimr)
+```
+
+##Load your data
+
+#Before going on, ensure that you have downloaded your data from Google clasroom and imported it into RStudio. 
+
+
+##For this activity, we will be looking at data from a study that tested the effectiveness of nicotine lozenges (Siffman et al., 2002).
+
+#What is the explanatory variable?
+
+#What is the response variable?
+
+
+##Create a 100% stacked graph to show the comparision between the proportions of people who abstained from smoking after taking a nicotine lozenge and taking a placebo lozenge.
+```{r stacked graph}
+result_ordered <- c("resumed", "abstained")
+treatment_result <-  lozenge %>%
+                    mutate(result = ordered(result, levels = result_ordered)) %>% 
+                    arrange(result) %>%
+                    ggplot(aes(x = treatment, fill = result)) +
+                    geom_bar(position = "fill") +
+                    labs(x = "Type of Lozenge")
+treatment_result
+```
+## Create a two-way table 
+
+```{r Create a two-way table}
+treatment_totals <- lozenge %>%
+            group_by(treatment, result) %>%
+            summarize(num = n()) %>%
+            spread(treatment, num)
+treatment_totals
+```
+
+##In the space below cacluate the following:
+
+#proportion of nicotine lozenge users who abstained from smoking
+#proportion of placebo lozenge users who abstained from smoking
+#combined proportion 
+```{r calculating proportions}
+prop_n_a <- 
+prop_p_a <- 
+prop_c <- 
+  
+props <- data.frame(prop_n_a,prop_p_a, prop_c)
+props
+```
+
+##Check the technical conditions
+
+```{r}
+
+```
+
+##Determine and interpret a 95% confidence interval for estimating the difference in population proptions showing successful abstinence between the two treatment groups. 
+
+```{r}
+two_prop_z <- prop.test(x = c(82, 44), n = c(459, 458), correct = FALSE, conf.level = 0.95)
+two_prop_z
+```
+
+##Test of Significance 
+#Write your null hypothesis
+
+#Write your alternative hypothesis
+
+#Using the output from the code above, write your test decision. 
+
+# Write a sentence or two describing whether or not the difference in proportions is statistically significant. 
+
+
+
